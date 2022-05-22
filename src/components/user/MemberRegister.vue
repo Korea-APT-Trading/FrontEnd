@@ -63,7 +63,7 @@
               type="button"
               variant="success"
               class="m-1"
-              @click="movePage"
+              @click="regist"
               >회원가입</b-button
             >
           </b-form>
@@ -89,6 +89,14 @@ export default {
       idDuplicate: true,
       allCheck: false,
     };
+  },
+  methods: {
+    movePage() {
+      this.$router.push({ name: "signin" });
+    },
+    regist() {
+      if (!this.allCheck) alert("아이디 중복 확인을 해주세요");
+    },
   },
 };
 </script>
