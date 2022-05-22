@@ -42,7 +42,6 @@
                 v-model="user.userpwd"
                 required
                 placeholder="비밀번호 입력...."
-                @keyup.enter="넣어야함;"
               ></b-form-input>
             </b-form-group>
             <b-form-group label="이름:" label-for="username">
@@ -51,7 +50,6 @@
                 v-model="user.username"
                 required
                 placeholder="이름 입력...."
-                @keyup.enter="넣어야함;"
               ></b-form-input>
             </b-form-group>
             <b-form-group label="이메일:" label-for="email">
@@ -61,7 +59,6 @@
                 v-model="user.email"
                 required
                 placeholder="이메일 입력...."
-                @keyup.enter="넣어야함;"
               ></b-form-input>
             </b-form-group>
             <b-button
