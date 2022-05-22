@@ -1,6 +1,7 @@
 import jwt_decode from "jwt-decode";
 import { login } from "@/api/member.js";
 import { findById } from "../../api/member";
+import { checkId } from "../../api/member";
 
 const memberStore = {
   namespaced: true,
@@ -8,10 +9,14 @@ const memberStore = {
     isLogin: false,
     isLoginError: false,
     userInfo: null,
+    idStatus: false,
   },
   getters: {
     checkUserInfo: function (state) {
       return state.userInfo;
+    },
+    checkIdStatus: function (state) {
+      return state.idStatus;
     },
   },
   mutations: {
@@ -24,6 +29,9 @@ const memberStore = {
     SET_USER_INFO: (state, userInfo) => {
       state.isLogin = true;
       state.userInfo = userInfo;
+    },
+    SET_ID_STATUS: (state, idStatus) => {
+      state.idStatus = idStatus;
     },
   },
   actions: {
@@ -53,6 +61,26 @@ const memberStore = {
             commit("SET_USER_INFO", response.data.userInfo);
           } else {
             console.log("유저 정보 없음!!");
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
+    async checkDuplicate({ commit }, userid) {
+      //console.log(typeof userid);
+      console.log(userid);
+      //commit("SET_IS_LOGIN_ERROR", true);
+      checkId(
+        userid,
+        (response) => {
+          if (response.data.message === "success") {
+            console.log("성공");
+            commit("SET_ID_STATUS", true);
+          } else {
+            console.log("실패");
+            commit("SET_ID_STATUS", false);
           }
         },
         (error) => {

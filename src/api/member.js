@@ -13,8 +13,8 @@ async function findById(userid, success, fail) {
 
 // function logout(success, fail)
 
-async function checkDuplicateId(userid, success, fail) {
+async function checkId(userid, success, fail) {
   await api.get(`/user/check/${userid}`).then(success).catch(fail);
 }
 
-export { login, findById };
+export { login, findById, checkId };

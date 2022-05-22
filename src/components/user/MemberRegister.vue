@@ -22,12 +22,18 @@
                 type="button"
                 variant="primary"
                 class="m-1"
-                @click="넣어야함;"
+                @click="check"
                 >아이디 중복 확인</b-button
               >
             </b-form-group>
-            <b-alert show variant="danger" v-if="idDuplicate"
+            <b-alert
+              show
+              variant="danger"
+              v-if="duplBtnStatus && !this.idStatus"
               >사용할 수 없는 아이디 입니다.</b-alert
+            >
+            <b-alert show v-if="duplBtnStatus && this.idStatus"
+              >사용할 수 있는 아이디 입니다.</b-alert
             >
             <b-form-group label="비밀번호:" label-for="userpwd">
               <b-form-input
@@ -75,6 +81,10 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
+const memberStore = "memberStore";
+
 export default {
   name: "MemberRegister",
   data() {
@@ -86,16 +96,32 @@ export default {
         email: null,
         joindate: null,
       },
-      idDuplicate: true,
-      allCheck: false,
+      duplBtnStatus: false,
     };
   },
+  computed: {
+    ...mapState(memberStore, ["idStatus"]),
+  },
   methods: {
+    ...mapActions(memberStore, ["checkDuplicate"]),
     movePage() {
       this.$router.push({ name: "signin" });
     },
     regist() {
-      if (!this.allCheck) alert("아이디 중복 확인을 해주세요");
+      if (!this.idStatus) alert("아이디 중복 확인을 해주세요");
+      //회원가입 등록 작업
+    },
+    async check() {
+      //alert(this.user.userid);
+      if (this.user.userid == null) alert("아이디를 입력해주세요");
+      else {
+        console.log("test");
+        this.duplBtnStatus = true;
+
+        console.log("실행 전 : " + this.user.userid);
+        await this.checkDuplicate(this.user.userid);
+        console.log("실행 후");
+      }
     },
   },
 };
