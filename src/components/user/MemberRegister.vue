@@ -64,7 +64,6 @@
                 @keyup.enter="넣어야함;"
               ></b-form-input>
             </b-form-group>
-
             <b-button
               type="button"
               variant="success"
@@ -103,19 +102,23 @@ export default {
     ...mapState(memberStore, ["idStatus"]),
   },
   methods: {
-    ...mapActions(memberStore, ["checkDuplicate"]),
+    ...mapActions(memberStore, ["checkDuplicate", "doRegist"]),
     movePage() {
-      this.$router.push({ name: "signin" });
+      this.$router.push({ name: "signIn" });
     },
-    regist() {
-      if (!this.idStatus) alert("아이디 중복 확인을 해주세요");
-      //회원가입 등록 작업
+    async regist() {
+      if (!this.idStatus || !this.duplBtnStatus)
+        alert("아이디 중복 확인을 해주세요");
+      else {
+        await this.doRegist(this.user);
+        alert("회원가입 성공!");
+        this.movePage();
+      }
     },
     async check() {
       //alert(this.user.userid);
       if (this.user.userid == null) alert("아이디를 입력해주세요");
       else {
-        console.log("test");
         this.duplBtnStatus = true;
 
         console.log("실행 전 : " + this.user.userid);

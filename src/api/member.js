@@ -17,4 +17,11 @@ async function checkId(userid, success, fail) {
   await api.get(`/user/check/${userid}`).then(success).catch(fail);
 }
 
-export { login, findById, checkId };
+async function regist(user, success, fail) {
+  await api
+    .post(`/user/regist`, JSON.stringify(user))
+    .then(success)
+    .catch(fail);
+}
+
+export { login, findById, checkId, regist };

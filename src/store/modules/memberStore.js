@@ -2,6 +2,7 @@ import jwt_decode from "jwt-decode";
 import { login } from "@/api/member.js";
 import { findById } from "../../api/member";
 import { checkId } from "../../api/member";
+import { regist } from "../../api/member";
 
 const memberStore = {
   namespaced: true,
@@ -10,14 +11,15 @@ const memberStore = {
     isLoginError: false,
     userInfo: null,
     idStatus: false,
+    registRst: false,
   },
   getters: {
     checkUserInfo: function (state) {
       return state.userInfo;
     },
-    checkIdStatus: function (state) {
-      return state.idStatus;
-    },
+    // checkIdStatus: function (state) {
+    //   return state.idStatus;
+    // },
   },
   mutations: {
     SET_IS_LOGIN: (state, isLogin) => {
@@ -32,6 +34,9 @@ const memberStore = {
     },
     SET_ID_STATUS: (state, idStatus) => {
       state.idStatus = idStatus;
+    },
+    SET_REGIST_RST: (state, registRst) => {
+      state.registRst = registRst;
     },
   },
   actions: {
@@ -72,7 +77,7 @@ const memberStore = {
       //console.log(typeof userid);
       console.log(userid);
       //commit("SET_IS_LOGIN_ERROR", true);
-      checkId(
+      await checkId(
         userid,
         (response) => {
           if (response.data.message === "success") {
@@ -81,6 +86,24 @@ const memberStore = {
           } else {
             console.log("실패");
             commit("SET_ID_STATUS", false);
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
+    async doRegist({ commit }, user) {
+      console.log(user);
+      await regist(
+        user,
+        (response) => {
+          if (response.data.message === "success") {
+            console.log("회원가입 성공");
+            commit("SET_REGIST_RST", true);
+          } else {
+            console.log("회원가입 실패");
+            commit("SET_REGIST_RST", false);
           }
         },
         (error) => {
