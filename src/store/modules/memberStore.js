@@ -4,6 +4,7 @@ import { findById } from "../../api/member";
 import { checkId } from "../../api/member";
 import { regist } from "../../api/member";
 import { modify } from "../../api/member";
+import { drop } from "../../api/member";
 
 const memberStore = {
   namespaced: true,
@@ -14,6 +15,7 @@ const memberStore = {
     idStatus: false,
     registRst: false,
     modifyRst: false,
+    dropRst: false,
   },
   getters: {
     checkUserInfo: function (state) {
@@ -42,6 +44,9 @@ const memberStore = {
     },
     SET_MODIFY_RST: (state, modifyRst) => {
       state.modifyRst = modifyRst;
+    },
+    SET_DROP_RST: (state, dropRst) => {
+      state.dropRst = dropRst;
     },
   },
   actions: {
@@ -127,6 +132,22 @@ const memberStore = {
           } else {
             console.log("수정 실패");
             commit("SET_MODIFY_RST", false);
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
+    async doDrop({ commit }, userid) {
+      console.log(userid);
+      await drop(
+        userid,
+        (response) => {
+          if (response.data.message === "success") {
+            commit("SET_DROP_RST", true);
+          } else {
+            commit("SET_DROP_RST", false);
           }
         },
         (error) => {

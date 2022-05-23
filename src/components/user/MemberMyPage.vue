@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 const memberStore = "memberStore";
 
@@ -67,13 +67,19 @@ export default {
   name: "MemberMyPage",
   // components: {},
   computed: {
-    ...mapState(memberStore, ["userInfo"]),
+    ...mapState(memberStore, ["userInfo", "dropRst"]),
   },
   methods: {
+    ...mapActions(memberStore, ["doDrop"]),
     modify() {
       this.$router.push({ name: "modify" });
     },
-    drop() {},
+    async drop() {
+      await this.doDrop(this.userInfo.userid);
+      if (this.dropRst) alert("회원 탈퇴 성공");
+      else alert("회원 탈퇴 실패");
+      //이동하는 부분 만들어야함
+    },
   },
 };
 </script>

@@ -28,4 +28,8 @@ async function modify(user, success, fail) {
   await api.put(`/user/modify`, JSON.stringify(user)).then(success).catch(fail);
 }
 
-export { login, findById, checkId, regist, modify };
+async function drop(userid, success, fail) {
+  await api.delete(`/user/drop/${userid}`).then(success).catch(fail);
+}
+
+export { login, findById, checkId, regist, modify, drop };
