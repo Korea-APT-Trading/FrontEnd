@@ -26,7 +26,7 @@ async function modify(user, success, fail) {
 }
 
 async function drop(userid, success, fail) {
-  await api.delete(`/user/drop/${userid}`).then(success).catch(fail);
+  await api.delete(`/user/${userid}`).then(success).catch(fail);
 }
 
 export { login, findById, checkId, regist, modify, drop };
