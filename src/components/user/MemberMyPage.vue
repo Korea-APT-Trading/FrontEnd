@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 const memberStore = "memberStore";
 
@@ -71,14 +71,21 @@ export default {
   },
   methods: {
     ...mapActions(memberStore, ["doDrop"]),
+    ...mapMutations(memberStore, ["SET_IS_LOGIN", "SET_USER_INFO"]),
     modify() {
       this.$router.push({ name: "modify" });
     },
     async drop() {
-      await this.doDrop(this.userInfo.userid);
-      if (this.dropRst) alert("회원 탈퇴 성공");
-      else alert("회원 탈퇴 실패");
-      //이동하는 부분 만들어야함
+      if (confirm("정말로 탈퇴할까요?")) {
+        await this.doDrop(this.userInfo.userid);
+        if (this.dropRst) {
+          this.SET_IS_LOGIN(false);
+          this.SET_USER_INFO(null);
+          sessionStorage.removeItem("access-token");
+          alert("회원 탈퇴 성공");
+        } else alert("회원 탈퇴 실패");
+        this.$router.push({ name: "home" });
+      }
     },
   },
 };
