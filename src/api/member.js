@@ -24,4 +24,8 @@ async function regist(user, success, fail) {
     .catch(fail);
 }
 
-export { login, findById, checkId, regist };
+async function modify(user, success, fail) {
+  await api.put(`/user/modify`, JSON.stringify(user)).then(success).catch(fail);
+}
+
+export { login, findById, checkId, regist, modify };

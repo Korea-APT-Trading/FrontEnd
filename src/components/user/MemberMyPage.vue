@@ -50,7 +50,7 @@
           <b-button type="button" variant="primary" class="mr-1" @click="modify"
             >정보수정</b-button
           >
-          <b-button variant="danger" href="#">회원탈퇴</b-button>
+          <b-button variant="danger" @click="drop">회원탈퇴</b-button>
         </b-jumbotron>
       </b-col>
       <b-col></b-col>
@@ -71,9 +71,9 @@ export default {
   },
   methods: {
     modify() {
-      alert("수정 누름");
       this.$router.push({ name: "modify" });
     },
+    drop() {},
   },
 };
 </script>

@@ -18,7 +18,7 @@
           <b-form class="text-left">
             <b-form-group label="아이디:">
               <b-form-input
-                v-model="userInfo.userid"
+                v-model="user.userid"
                 disabled
                 required
               ></b-form-input>
@@ -27,7 +27,7 @@
               <b-form-input
                 type="password"
                 id="userpwd"
-                v-model="userInfo.userpwd"
+                v-model="user.userpwd"
                 required
                 placeholder="비밀번호 입력...."
               ></b-form-input>
@@ -35,7 +35,7 @@
             <b-form-group label="이름:" label-for="username">
               <b-form-input
                 id="username"
-                v-model="userInfo.username"
+                v-model="user.username"
                 required
                 placeholder="이름 입력...."
               ></b-form-input>
@@ -44,7 +44,7 @@
               <b-form-input
                 type="email"
                 id="email"
-                v-model="userInfo.email"
+                v-model="user.email"
                 required
                 placeholder="이메일 입력...."
               ></b-form-input>
@@ -98,20 +98,48 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 const memberStore = "memberStore";
 
 export default {
   name: "MemberMyPage",
   // components: {},
+  data() {
+    return {
+      user: {
+        userid: null,
+        userpwd: null,
+        username: null,
+        email: null,
+      },
+    };
+  },
   computed: {
-    ...mapState(memberStore, ["userInfo"]),
+    ...mapState(memberStore, ["userInfo", "modifyRst"]),
   },
   methods: {
-    complete() {
-      alert("수정완료 누름");
+    ...mapActions(memberStore, ["doModify"]),
+    async complete() {
+      //alert("수정완료 누름: " + this.user);
+      console.log(this.user);
+      await this.doModify(this.user);
+
+      if (this.modifyRst) {
+        alert("회원 정보 수정 완료");
+        this.userInfo.userid = this.user.userid;
+        this.userInfo.userpwd = this.user.userpwd;
+        this.userInfo.username = this.user.username;
+        this.userInfo.email = this.user.email;
+      } else alert("회원 정보 수정 실패");
+      this.$router.push({ name: "mypage" });
     },
+  },
+  created() {
+    this.user.userid = this.userInfo.userid;
+    this.user.userpwd = this.userInfo.userpwd;
+    this.user.username = this.userInfo.username;
+    this.user.email = this.userInfo.email;
   },
 };
 </script>

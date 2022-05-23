@@ -3,6 +3,7 @@ import { login } from "@/api/member.js";
 import { findById } from "../../api/member";
 import { checkId } from "../../api/member";
 import { regist } from "../../api/member";
+import { modify } from "../../api/member";
 
 const memberStore = {
   namespaced: true,
@@ -12,6 +13,7 @@ const memberStore = {
     userInfo: null,
     idStatus: false,
     registRst: false,
+    modifyRst: false,
   },
   getters: {
     checkUserInfo: function (state) {
@@ -37,6 +39,9 @@ const memberStore = {
     },
     SET_REGIST_RST: (state, registRst) => {
       state.registRst = registRst;
+    },
+    SET_MODIFY_RST: (state, modifyRst) => {
+      state.modifyRst = modifyRst;
     },
   },
   actions: {
@@ -104,6 +109,24 @@ const memberStore = {
           } else {
             console.log("회원가입 실패");
             commit("SET_REGIST_RST", false);
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
+    async doModify({ commit }, user) {
+      console.log(user);
+      await modify(
+        user,
+        (response) => {
+          if (response.data.message === "success") {
+            console.log("수정 성공");
+            commit("SET_MODIFY_RST", true);
+          } else {
+            console.log("수정 실패");
+            commit("SET_MODIFY_RST", false);
           }
         },
         (error) => {
