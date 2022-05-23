@@ -14,18 +14,15 @@ async function findById(userid, success, fail) {
 // function logout(success, fail)
 
 async function checkId(userid, success, fail) {
-  await api.get(`/user/check/${userid}`).then(success).catch(fail);
+  await api.get(`/user-id/${userid}`).then(success).catch(fail);
 }
 
 async function regist(user, success, fail) {
-  await api
-    .post(`/user/regist`, JSON.stringify(user))
-    .then(success)
-    .catch(fail);
+  await api.post(`/user`, JSON.stringify(user)).then(success).catch(fail);
 }
 
 async function modify(user, success, fail) {
-  await api.put(`/user/modify`, JSON.stringify(user)).then(success).catch(fail);
+  await api.patch(`/user`, JSON.stringify(user)).then(success).catch(fail);
 }
 
 async function drop(userid, success, fail) {
