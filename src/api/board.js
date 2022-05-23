@@ -15,6 +15,7 @@ function getArticle(articleno, success, fail) {
 }
 
 function modifyArticle(article, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
   api
     .put(`/board/${article.articleno}`, JSON.stringify(article))
     .then(success)
@@ -22,6 +23,7 @@ function modifyArticle(article, success, fail) {
 }
 
 function deleteArticle(articleno, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
   api.delete(`/board/${articleno}`).then(success).catch(fail);
 }
 
