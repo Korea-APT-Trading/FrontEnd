@@ -9,19 +9,13 @@
           text-variant="dark"
           border-variant="dark"
         >
-          <template #header>SSAFY Home</template>
+          <template #header>12조: 김준우-박세현</template>
 
-          <template #lead>
-            슬기로운 싸피 생활 (:7기편) <br />
-            행운을 부르는 러~~~~키 Seven!!!!!
-          </template>
+          <template #lead> 슬기로운 SSAFY 부동산 생활<br /> </template>
 
           <hr class="my-4" />
 
-          <p>Vue + Bootstrap활용.</p>
-          <p>Bootstrap-vue는 버전 <b>4.6.1</b>을 권장합니다.</p>
-          <p><b>BoardList.vue</b>를 바꿔가면서 테스트하세요.</p>
-          <p>Bootstrap의 <b>table</b> 사용법을 익히게됩니다.</p>
+          <p>환영합니다</p>
         </b-jumbotron>
       </b-col>
       <b-col></b-col>
