@@ -91,11 +91,6 @@ const routes = [
     ],
   },
   {
-    path: "/instagram",
-    name: "instagram",
-    component: () => import("@/views/InstagramView.vue"),
-  },
-  {
     path: "/house",
     name: "house",
     beforeEnter: onlyAuthUser,
@@ -116,7 +111,26 @@ const routes = [
       {
         path: "list",
         name: "qnaList",
+        beforeEnter: onlyAuthUser,
         component: () => import("@/components/qna/QnAList.vue"),
+      },
+      {
+        path: "detail/:articleno",
+        name: "qnaDetail",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/components/qna/QnaDetail.vue"),
+      },
+      {
+        path: "write",
+        name: "qnaRegister",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/components/qna/QnaRegister.vue"),
+      },
+      {
+        path: "modify/:articleno",
+        name: "qnaModify",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/components/qna/QnaModify.vue"),
       },
     ],
   },

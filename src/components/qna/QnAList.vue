@@ -27,28 +27,28 @@
           </b-thead>
           <tbody>
             <!-- 하위 component인 ListRow에 데이터 전달(props) -->
-            <!-- <qna-list-item
+            <qna-list-item
               v-for="article in articles"
               :key="article.articleno"
               v-bind="article"
-            /> -->
+            />
           </tbody>
         </b-table-simple>
       </b-col>
-      <!-- <b-col v-else class="text-center">도서 목록이 없습니다.</b-col> -->
+      <b-col v-else class="text-center">질문이 없습니다.</b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
 //import http from "@/api/http";
-//import QnaListItem from "@/components/qna/item/QnaListItem";
+import QnaListItem from "@/components/qna/item/QnaListItem";
 import { qnaArticle } from "@/api/qna.js";
 
 export default {
   name: "QnaList",
   components: {
-    //  QnaListItem,
+    QnaListItem,
   },
   data() {
     return {
@@ -62,12 +62,12 @@ export default {
     qnaArticle(
       (response) => {
         this.articles = response.data;
+        //console.log(this.articles);
       },
       (error) => {
         console.log(error);
       },
     );
-    console.log(this.articles);
   },
   methods: {
     moveWrite() {
