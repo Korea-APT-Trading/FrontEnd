@@ -107,6 +107,19 @@ const routes = [
     beforeEnter: onlyAuthUser,
     component: () => import("@/views/TodoView.vue"),
   },
+  {
+    path: "/qna",
+    name: "qna",
+    component: () => import("@/views/QnA.vue"),
+    redirect: "/qna/list",
+    children: [
+      {
+        path: "list",
+        name: "qnaList",
+        component: () => import("@/components/qna/QnAList.vue"),
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({
