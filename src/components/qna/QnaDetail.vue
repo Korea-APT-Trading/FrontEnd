@@ -44,6 +44,7 @@
 <script>
 // import QnaInputItem from "@/components/qna/item/QnaInputItem.vue";
 import { getArticle, deleteArticle } from "@/api/qna";
+import { mapState } from "vuex";
 
 export default {
   name: "QnaWrite",
@@ -62,9 +63,17 @@ export default {
   components: {
     // QnaInputItem,
   },
-  created() {
+  computed: {
+    ...mapState("memberStore", ["userInfo"]),
+    content() {
+      if (this.article.content)
+        return this.article.content.split("\n").join("<br>");
+      return "내용이 없습니다.";
+    },
+  },
+  async created() {
     //console.log(this.$route.params.articleno);
-    getArticle(
+    await getArticle(
       this.$route.params.articleno,
       (response) => {
         this.article.articleno = response.data.articleno;
@@ -80,7 +89,20 @@ export default {
     );
     //console.log(this.articleno);
 
-    console.log(this.article);
+    //console.log(this.article);
+
+    //console.log(">>>>>>>" + this.userInfo.userid);
+    //console.log(">>>>>>>>" + this.article.userid);
+    if (
+      this.article.userid == this.userInfo.userid ||
+      this.userInfo.userid === "admin"
+    ) {
+      if (this.userInfo.userid === "admin")
+        alert("관리자님은 특별히 보여줄게요.");
+    } else {
+      alert("문의글을 볼 수 있는 권한이 없습니다.");
+      this.$router.push({ name: "qnaList" });
+    }
   },
   methods: {
     listArticle() {
@@ -106,13 +128,6 @@ export default {
         name: "qnaModify",
         params: { articleno: this.article.articleno },
       });
-    },
-  },
-  computed: {
-    content() {
-      if (this.article.content)
-        return this.article.content.split("\n").join("<br>");
-      return "내용이 없습니다.";
     },
   },
 };

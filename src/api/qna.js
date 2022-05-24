@@ -10,8 +10,8 @@ function registArticle(article, success, fail) {
   api.post(`/qna`, JSON.stringify(article)).then(success).catch(fail);
 }
 
-function getArticle(articleno, success, fail) {
-  api.get(`/qna/${articleno}`).then(success).catch(fail);
+async function getArticle(articleno, success, fail) {
+  await api.get(`/qna/${articleno}`).then(success).catch(fail);
 }
 
 function modifyArticle(article, success, fail) {

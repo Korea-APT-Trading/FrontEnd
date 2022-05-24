@@ -33,13 +33,13 @@
               아파트정보</router-link
             ></b-nav-item
           >
-          <b-nav-item href="#"
+          <b-nav-item href="#" v-if="userInfo"
             ><router-link :to="{ name: 'todo' }" class="link"
               ><b-icon icon="calendar-check" font-scale="1.5"></b-icon>
               TodoList</router-link
             ></b-nav-item
           >
-          <b-nav-item href="#"
+          <b-nav-item href="#" v-if="userInfo"
             ><router-link :to="{ name: 'qna' }" class="link"
               ><b-icon icon="journal" font-scale="1.5"></b-icon>
               QnA</router-link
