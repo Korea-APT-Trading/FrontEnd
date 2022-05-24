@@ -178,7 +178,7 @@ export default {
       else this.idValid = false;
     },
     confirmPwd() {
-      if (this.user.userpwd.length > 8) this.pwdValid = true;
+      if (this.user.userpwd.length >= 8) this.pwdValid = true;
       else this.pwdValid = false;
     },
     confirmName() {
