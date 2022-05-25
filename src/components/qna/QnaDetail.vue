@@ -38,6 +38,10 @@
     </b-row>
     <b-row class="mb-1">
       <b-col v-if="comments.length">
+        <br />
+        <hr />
+        <label>[ 댓글 ]</label>
+        <hr />
         <!-- <b-card header-html="답변" class="mb-2" border-variant="dark" no-body>
           <b-card-body class="text-left">
             <div v-html="content"></div>
@@ -143,6 +147,7 @@ export default {
     } else {
       alert("문의 글을 볼 수 있는 권한이 없습니다.");
       this.$router.replace({ name: "qnaList" });
+      return;
     }
 
     console.log(this.$route.params.articleno);
@@ -183,7 +188,6 @@ export default {
       },
     );
     console.log(this.comments);
-    console.log("created 끝");
   },
   methods: {
     listArticle() {
