@@ -40,7 +40,7 @@
       <b-col v-if="comments.length">
         <br />
         <hr />
-        <label>[ 댓글 ]</label>
+        <label>[ 추가질문 / 답변 ]</label>
         <hr />
         <!-- <b-card header-html="답변" class="mb-2" border-variant="dark" no-body>
           <b-card-body class="text-left">

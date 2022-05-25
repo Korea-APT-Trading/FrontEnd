@@ -27,4 +27,15 @@ function deleteArticle(articleno, success, fail) {
   api.delete(`/board/${articleno}`).then(success).catch(fail);
 }
 
-export { listArticle, writeArticle, getArticle, modifyArticle, deleteArticle };
+function topFiveHitBoard(success, fail) {
+  api.get(`/board/main`).then(success).catch(fail);
+}
+
+export {
+  listArticle,
+  writeArticle,
+  getArticle,
+  modifyArticle,
+  deleteArticle,
+  topFiveHitBoard,
+};

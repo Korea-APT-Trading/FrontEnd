@@ -60,7 +60,7 @@
           :comment="comment"
         />
       </b-col>
-      <b-col v-else class="text-center">답변 혹은 댓글이 없습니다.</b-col>
+      <b-col v-else class="text-center">댓글이 없습니다.</b-col>
     </b-row>
     <!-- <qna-input-item type="modify" :no="articleno" /> -->
     <b-col v-if="ansBtnStatus">
