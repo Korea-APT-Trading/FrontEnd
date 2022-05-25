@@ -2,6 +2,10 @@
   <b-container class="bv-example-row mt-3 text-center">
     <h3 class="underline-steelblue"><b-icon icon="house"></b-icon> 김앤박</h3>
 
+    <img
+      src="https://cdnweb01.wikitree.co.kr/webdata/editor/202011/13/img_20201113135150_732388a0.webp"
+    />
+
     <b-container class="bv-example-row mt-3">
       <b-row>
         <b-col>
@@ -11,7 +15,7 @@
       </b-row>
       <b-row class="mb-1"> </b-row>
       <b-row>
-        <b-col v-if="articles.length">
+        <b-col>
           <b-table-simple hover responsive>
             <b-thead head-variant="dark">
               <b-tr>
@@ -31,7 +35,35 @@
             </tbody>
           </b-table-simple>
         </b-col>
-        <b-col v-else class="text-center">질문이 없습니다.</b-col>
+      </b-row>
+    </b-container>
+
+    <b-container class="bv-example-row mt-3">
+      <b-row>
+        <b-col>
+          <b-alert show><h3>Hot News</h3></b-alert>
+        </b-col>
+        <br />
+      </b-row>
+      <b-row class="mb-1"> </b-row>
+      <b-row>
+        <b-col>
+          <b-table-simple hover responsive>
+            <b-thead head-variant="dark">
+              <b-tr>
+                <b-th>소식</b-th>
+              </b-tr>
+            </b-thead>
+            <tbody>
+              <!-- 하위 component인 ListRow에 데이터 전달(props) -->
+              <news-list-item
+                v-for="content in news"
+                :key="content.link"
+                v-bind="content"
+              />
+            </tbody>
+          </b-table-simple>
+        </b-col>
       </b-row>
     </b-container>
 
@@ -59,7 +91,9 @@
 
 <script>
 import { topFiveHitBoard } from "@/api/board";
+import { getNews } from "@/api/news";
 import BoardTopFive from "@/components/board/item/BoardTopFive";
+import NewsListItem from "@/components/news/item/NewsListItem";
 
 export default {
   name: "HomeView",
@@ -68,10 +102,12 @@ export default {
   },
   components: {
     BoardTopFive,
+    NewsListItem,
   },
   data() {
     return {
       articles: {},
+      news: {},
     };
   },
   created() {
@@ -82,6 +118,14 @@ export default {
       (error) => {
         console.log(error);
       },
+      getNews(
+        (response) => {
+          this.news = response.data;
+        },
+        (error) => {
+          console.log(error);
+        },
+      ),
     );
 
     console.log(this.articles);
