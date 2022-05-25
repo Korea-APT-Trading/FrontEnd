@@ -3,7 +3,10 @@
     <b-td>{{ articleno }}</b-td>
     <b-th class="text-left">
       <router-link
-        :to="{ name: 'qnaDetail', params: { articleno: articleno } }"
+        :to="{
+          name: 'qnaDetail',
+          params: { articleno: articleno, userid: userid },
+        }"
         >{{ subject }}</router-link
       >
     </b-th>

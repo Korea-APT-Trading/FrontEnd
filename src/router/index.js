@@ -115,7 +115,7 @@ const routes = [
         component: () => import("@/components/qna/QnAList.vue"),
       },
       {
-        path: "detail/:articleno",
+        path: "detail/:articleno/:userid",
         name: "qnaDetail",
         beforeEnter: onlyAuthUser,
         component: () => import("@/components/qna/QnaDetail.vue"),

@@ -25,8 +25,7 @@
     <b-row class="mb-1">
       <b-col>
         <b-card
-          :header-html="`<h3>${article.articleno}.
-          ${article.subject} [${article.hit}]</h3><div><h6>${article.userid}</div><div>${article.regtime}</h6></div>`"
+          :header-html="`<h3>${article.subject}</h3><div><h6>작성자: ${article.userid}</div><div>${article.regtime}</h6></div>`"
           class="mb-2"
           border-variant="dark"
           no-body
@@ -37,13 +36,72 @@
         </b-card>
       </b-col>
     </b-row>
+    <b-row class="mb-1">
+      <b-col v-if="comments.length">
+        <!-- <b-card header-html="답변" class="mb-2" border-variant="dark" no-body>
+          <b-card-body class="text-left">
+            <div v-html="content"></div>
+          </b-card-body>
+        </b-card> -->
+        <qna-comment-item
+          v-for="comment in comments"
+          :key="comment.articleno"
+          :comment="comment"
+        />
+      </b-col>
+      <b-col v-else class="text-center">답변 혹은 댓글이 없습니다.</b-col>
+    </b-row>
     <!-- <qna-input-item type="modify" :no="articleno" /> -->
+    <b-col v-if="ansBtnStatus">
+      <b-button
+        variant="outline-danger"
+        size="sm"
+        @click="writeComment"
+        v-if="this.userInfo.userid === 'admin'"
+        >답변하기</b-button
+      >
+      <b-button variant="outline-danger" size="sm" @click="writeComment" v-else
+        >추가 질문하기</b-button
+      >
+    </b-col>
+    <b-card
+      header-html="답변 작성 중..."
+      class="mb-2"
+      border-variant="dark"
+      no-body
+      v-else
+    >
+      <b-card-body class="text-left"
+        ><b-form-input
+          v-model="commentcontext"
+          required
+          placeholder="내용 입력...."
+        ></b-form-input>
+      </b-card-body>
+    </b-card>
+    <b-button
+      variant="outline-info"
+      size="sm"
+      @click="completeComment"
+      class="mr-2"
+      v-if="!ansBtnStatus"
+      >완료</b-button
+    >
+    <b-button
+      variant="outline-danger"
+      size="sm"
+      @click="cancelComment"
+      v-if="!ansBtnStatus"
+      >취소</b-button
+    >
   </b-container>
 </template>
 
 <script>
 // import QnaInputItem from "@/components/qna/item/QnaInputItem.vue";
+import QnaCommentItem from "@/components/qna/item/QnaCommentItem.vue";
 import { getArticle, deleteArticle } from "@/api/qna";
+import { qnaCommentArticle, writeComment } from "@/api/qnaComment";
 import { mapState } from "vuex";
 
 export default {
@@ -58,10 +116,14 @@ export default {
         hit: "",
         regtime: "",
       },
+      comments: {},
+      ansBtnStatus: true,
+      commentcontext: "",
     };
   },
   components: {
     // QnaInputItem,
+    QnaCommentItem,
   },
   computed: {
     ...mapState("memberStore", ["userInfo"]),
@@ -72,7 +134,18 @@ export default {
     },
   },
   async created() {
-    //console.log(this.$route.params.articleno);
+    if (
+      this.$route.params.userid == this.userInfo.userid ||
+      this.userInfo.userid === "admin"
+    ) {
+      // if (this.userInfo.userid === "admin")
+      //   alert("관리자님은 특별히 보여줄게요.");
+    } else {
+      alert("문의 글을 볼 수 있는 권한이 없습니다.");
+      this.$router.replace({ name: "qnaList" });
+    }
+
+    console.log(this.$route.params.articleno);
     await getArticle(
       this.$route.params.articleno,
       (response) => {
@@ -88,21 +161,29 @@ export default {
       },
     );
     //console.log(this.articleno);
-
     //console.log(this.article);
+    // if (
+    //   this.article.userid == this.userInfo.userid ||
+    //   this.userInfo.userid === "admin"
+    // ) {
+    //   if (this.userInfo.userid === "admin")
+    //     alert("관리자님은 특별히 보여줄게요.");
+    // } else {
+    //   alert("문의글을 볼 수 있는 권한이 없습니다.");
+    //   this.$router.push({ name: "qnaList" });
+    // }
 
-    //console.log(">>>>>>>" + this.userInfo.userid);
-    //console.log(">>>>>>>>" + this.article.userid);
-    if (
-      this.article.userid == this.userInfo.userid ||
-      this.userInfo.userid === "admin"
-    ) {
-      if (this.userInfo.userid === "admin")
-        alert("관리자님은 특별히 보여줄게요.");
-    } else {
-      alert("문의글을 볼 수 있는 권한이 없습니다.");
-      this.$router.push({ name: "qnaList" });
-    }
+    await qnaCommentArticle(
+      this.$route.params.articleno,
+      (response) => {
+        this.comments = response.data;
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
+    console.log(this.comments);
+    console.log("created 끝");
   },
   methods: {
     listArticle() {
@@ -128,6 +209,32 @@ export default {
         name: "qnaModify",
         params: { articleno: this.article.articleno },
       });
+    },
+    writeComment() {
+      this.ansBtnStatus = false;
+    },
+    cancelComment() {
+      this.commentcontext = "";
+      this.ansBtnStatus = true;
+    },
+    completeComment() {
+      writeComment(
+        {
+          qnano: this.article.articleno,
+          userid: this.userInfo.userid,
+          content: this.commentcontext,
+        },
+        () => {
+          alert("답글을 달았습니다.");
+          this.commentcontext = "";
+          this.ansBtnStatus = true;
+          location.reload();
+        },
+        (error) => {
+          console.log(error);
+          alert("답글 등록 도중 에러가 발생했습니다.");
+        },
+      );
     },
   },
 };
