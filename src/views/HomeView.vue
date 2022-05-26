@@ -2,9 +2,7 @@
   <b-container class="bv-example-row mt-3 text-center">
     <h3 class="underline-steelblue"><b-icon icon="house"></b-icon> 김앤박</h3>
 
-    <img
-      src="https://cdnweb01.wikitree.co.kr/webdata/editor/202011/13/img_20201113135150_732388a0.webp"
-    />
+    <img src="@/assets/main/img4.jpg" width="1050px" height="auto" />
 
     <b-container class="bv-example-row mt-3">
       <b-row>
