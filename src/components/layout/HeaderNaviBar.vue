@@ -18,30 +18,45 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'home' }" class="link"
+            ><router-link
+              :to="{ name: 'home' }"
+              class="link"
+              style="color: white"
               ><b-icon icon="house" font-scale="1.5"></b-icon> 홈</router-link
             ></b-nav-item
           >
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'board' }" class="link"
+            ><router-link
+              :to="{ name: 'board' }"
+              class="link"
+              style="color: white"
               ><b-icon icon="journal" font-scale="1.5"></b-icon>
               게시판</router-link
             ></b-nav-item
           >
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'house' }" class="link"
+            ><router-link
+              :to="{ name: 'house' }"
+              class="link"
+              style="color: white"
               ><b-icon icon="house-fill" font-scale="1.5"></b-icon>
               아파트정보</router-link
             ></b-nav-item
           >
           <b-nav-item href="#" v-if="userInfo"
-            ><router-link :to="{ name: 'todo' }" class="link"
+            ><router-link
+              :to="{ name: 'todo' }"
+              class="link"
+              style="color: white"
               ><b-icon icon="calendar-check" font-scale="1.5"></b-icon>
               TodoList</router-link
             ></b-nav-item
           >
           <b-nav-item href="#" v-if="userInfo"
-            ><router-link :to="{ name: 'qna' }" class="link"
+            ><router-link
+              :to="{ name: 'qna' }"
+              class="link"
+              style="color: white"
               ><b-icon icon="journal" font-scale="1.5"></b-icon>
               QnA</router-link
             ></b-nav-item
@@ -53,9 +68,8 @@
             ><b-avatar
               variant="primary"
               v-text="userInfo ? userInfo.userid.charAt(0).toUpperCase() : ''"
-            ></b-avatar
-            >{{ userInfo.username }}({{ userInfo.userid }})님
-            환영합니다.</b-nav-item
+            ></b-avatar>
+            {{ userInfo.username }}님 환영합니다.</b-nav-item
           >
           <b-nav-item class="align-self-center"
             ><router-link
