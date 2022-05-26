@@ -10,6 +10,12 @@ export default {
   data() {
     return {
       map: null,
+      markerPositions1: [
+        { title: "카카오", latlng: new kakao.maps.LatLng(33.45, 126.56) },
+        { title: "생태연못", latlng: new kakao.maps.LatLng(33.45, 126.56) },
+        { title: "텃밭", latlng: new kakao.maps.LatLng(33.45, 126.57) },
+      ],
+      makers: [],
     };
   },
   methods: {
@@ -21,6 +27,34 @@ export default {
       };
       this.map = new kakao.maps.Map(container, options);
     },
+    // displayMarkers(positions) {
+    //   if (this.markers.length > 0) {
+    //     this.markers.forEach((item) => {
+    //       item.setMap(null);
+    //     });
+    //   }
+
+    //   const imgSrc = require("@/assets/markerStar.jpg");
+    //   const imgSize = new kakao.maps.Size(24, 35);
+    //   const markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize);
+
+    //   positions.forEach((position) => {
+    //     const marker = new kakao.maps.Marker({
+    //       map: this.map,
+    //       position: position.latlng,
+    //       title: position.title,
+    //       image: markerImage,
+    //     });
+    //     this.markers.push(marker);
+    //   });
+
+    //   const bounds = positions.reduce(
+    //     (bounds, position) => bounds.extend(position.latlng),
+    //     new kakao.maps.LatLngBounds(),
+    //   );
+
+    //   this.map.setBounds(bounds);
+    // },
   },
   mounted() {
     if (!window.kakao || !window.kakao.maps) {
@@ -39,6 +73,7 @@ export default {
       //console.log("이미 로딩됨: ", window.kakao);
       this.initMap();
     }
+    // this.displayMarkers();
   },
 };
 </script>

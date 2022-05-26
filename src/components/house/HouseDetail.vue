@@ -66,6 +66,9 @@ export default {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
+  created() {
+    console.log(this.house);
+  },
 };
 </script>
 
