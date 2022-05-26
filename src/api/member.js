@@ -22,7 +22,7 @@ async function regist(user, success, fail) {
 }
 
 async function modify(user, success, fail) {
-  await api.patch(`/user`, JSON.stringify(user)).then(success).catch(fail);
+  await api.put(`/user`, JSON.stringify(user)).then(success).catch(fail);
 }
 
 async function drop(userid, success, fail) {
