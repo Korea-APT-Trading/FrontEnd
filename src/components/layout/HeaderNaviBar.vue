@@ -49,7 +49,7 @@
               class="link"
               style="color: white"
               ><b-icon icon="calendar-check" font-scale="1.5"></b-icon>
-              TodoList</router-link
+              메모장</router-link
             ></b-nav-item
           >
           <b-nav-item href="#" v-if="userInfo"

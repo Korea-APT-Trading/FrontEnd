@@ -1,7 +1,7 @@
 <template>
   <b-container class="bv-example-row mt-3 text-center">
     <h3 class="underline-steelblue">
-      <b-icon icon="calendar-check"></b-icon> Todo List
+      <b-icon icon="calendar-check"></b-icon> House Note
     </h3>
     <b-row>
       <b-col>
