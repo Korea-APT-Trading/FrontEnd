@@ -7,14 +7,13 @@
     :class="{ 'mouse-over-bgcolor': isColor }"
   >
     <b-col cols="2" class="text-center align-self-center">
-      <b-img
-        thumbnail
-        src="https://picsum.photos/250/250/?image=58"
-        alt="Image 1"
-      ></b-img>
+      <!-- <b-img thumbnail src="https://picsum.photos/250/250/?image=1"></b-img> -->
     </b-col>
     <b-col cols="10" class="align-self-center">
-      [{{ house.일련번호 }}] {{ house.아파트 }}
+      <!-- HERE -->
+      <!-- [{{ house.일련번호 }}] {{ house.아파트 }} -->
+      <img src="@/assets/aptIcon.png" width="30px" />
+      [{{ house.buildYear }}] {{ house.aptName }}
     </b-col>
   </b-row>
 </template>
@@ -33,6 +32,10 @@ export default {
   },
   props: {
     house: Object,
+  },
+  created() {
+    console.log("run");
+    console.log(this.house);
   },
   methods: {
     ...mapActions(houseStore, ["detailHouse"]),

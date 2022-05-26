@@ -6,24 +6,61 @@
 </template>
 
 <script>
+// let kakao = window.kakao;
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
       map: null,
-      markerPositions1: [
-        { title: "카카오", latlng: new kakao.maps.LatLng(33.45, 126.56) },
-        { title: "생태연못", latlng: new kakao.maps.LatLng(33.45, 126.56) },
-        { title: "텃밭", latlng: new kakao.maps.LatLng(33.45, 126.57) },
-      ],
-      makers: [],
+      markers: null,
+      // markerPositions1: [
+      //   { title: "카카오", latlng: new kakao.maps.LatLng(33.45, 126.56) },
+      //   { title: "생태연못", latlng: new kakao.maps.LatLng(33.45, 126.56) },
+      //   { title: "텃밭", latlng: new kakao.maps.LatLng(33.45, 126.57) },
+      // ],
+      // makers: [],
     };
+  },
+  computed: {
+    ...mapState("houseStore", ["house"]),
+  },
+  watch: {
+    house: function () {
+      // if (this.marker.length > 0) {
+      //   this.markers.forEach((item) => {
+      //     item.setMap(null);
+      //   });
+      // }
+
+      let markerPosition = new kakao.maps.LatLng(
+        this.house.lat,
+        this.house.lng,
+      );
+
+      // 마커를 생성합니다
+      let marker = new kakao.maps.Marker({
+        position: markerPosition,
+        title: this.house.aptName,
+        // map: this.map,
+      });
+
+      // 마커가 지도 위에 표시되도록 설정합니다
+      marker.setMap(this.map);
+
+      let moveLatLon = new kakao.maps.LatLng(this.house.lat, this.house.lng);
+
+      // 지도 중심을 부드럽게 이동시킵니다
+      // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+      this.map.panTo(moveLatLon);
+    },
   },
   methods: {
     initMap() {
       const container = document.getElementById("map");
       const options = {
-        center: new kakao.maps.LatLng(37.2429362, 131.8624647, 16),
-        level: 5,
+        center: new kakao.maps.LatLng(37.553836, 126.969652),
+        level: 4,
       };
       this.map = new kakao.maps.Map(container, options);
     },
@@ -81,6 +118,6 @@ export default {
 <style>
 #map {
   width: 1110px;
-  height: 1110px;
+  height: 650px;
 }
 </style>

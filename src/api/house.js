@@ -12,6 +12,8 @@ function gugunList(params, success, fail) {
 }
 
 function dongList(params, success, fail) {
+  // console.log("<<<<>>>>");
+  // console.log(params);
   api.get(`/map/dong`, { params: params }).then(success).catch(fail);
 }
 
@@ -19,4 +21,8 @@ function houseList(params, success, fail) {
   house.get(``, { params: params }).then(success).catch(fail);
 }
 
-export { sidoList, gugunList, houseList, dongList };
+function myHouseList(params, success, fail) {
+  api.get(`/map/apt`, { params: params }).then(success).catch(fail);
+}
+
+export { sidoList, gugunList, houseList, dongList, myHouseList };

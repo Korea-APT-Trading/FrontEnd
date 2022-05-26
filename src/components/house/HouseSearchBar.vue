@@ -21,6 +21,13 @@
       <b-form-select
         v-model="gugunCode"
         :options="guguns"
+        @change="dongList"
+      ></b-form-select>
+    </b-col>
+    <b-col class="sm-3">
+      <b-form-select
+        v-model="dongCode"
+        :options="dongs"
         @change="searchApt"
       ></b-form-select>
     </b-col>
@@ -48,10 +55,11 @@ export default {
     return {
       sidoCode: null,
       gugunCode: null,
+      dongCode: null,
     };
   },
   computed: {
-    ...mapState(houseStore, ["sidos", "guguns", "houses"]),
+    ...mapState(houseStore, ["sidos", "guguns", "dongs", "houses"]),
     // sidos() {
     //   return this.$store.state.sidos;
     // },
@@ -60,11 +68,23 @@ export default {
     // this.$store.dispatch("getSido");
     // this.sidoList();
     this.CLEAR_SIDO_LIST();
+    this.CLEAR_GUGUN_LIST();
+    this.CLEAR_DONG_LIST();
     this.getSido();
   },
   methods: {
-    ...mapActions(houseStore, ["getSido", "getGugun", "getHouseList"]),
-    ...mapMutations(houseStore, ["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST"]),
+    ...mapActions(houseStore, [
+      "getSido",
+      "getGugun",
+      "getDong",
+      "getHouseList",
+      "getMyHouseList",
+    ]),
+    ...mapMutations(houseStore, [
+      "CLEAR_SIDO_LIST",
+      "CLEAR_GUGUN_LIST",
+      "CLEAR_DONG_LIST",
+    ]),
     // sidoList() {
     //   this.getSido();
     // },
@@ -74,8 +94,18 @@ export default {
       this.gugunCode = null;
       if (this.sidoCode) this.getGugun(this.sidoCode);
     },
+    dongList() {
+      // console.log("동코드");
+      // console.log(this.gugnCode);
+      // console.log("동코드 FIN");
+      this.CLEAR_DONG_LIST();
+      this.dongCode = null;
+      if (this.gugunCode) this.getDong(this.gugunCode);
+    },
     searchApt() {
-      if (this.gugunCode) this.getHouseList(this.gugunCode);
+      //if (this.gugunCode) this.getHouseList(this.gugunCode);
+      console.log(this.dongCode);
+      if (this.dongCode) this.getMyHouseList(this.dongCode);
     },
   },
 };
