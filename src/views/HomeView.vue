@@ -1,7 +1,9 @@
 <template>
   <b-container class="bv-example-row mt-3 text-center">
-    <h3 class="underline-steelblue"><b-icon icon="house"></b-icon> 김앤박</h3>
-
+    <h3 class="underline-steelblue">
+      <img src="@/assets/KimandPark.png" width="auto" height="40px" /> 김앤박
+    </h3>
+    <!-- <b-icon icon="house"></b-icon> -->
     <img src="@/assets/main/img4.jpg" width="1050px" height="auto" />
 
     <b-container class="bv-example-row mt-3">

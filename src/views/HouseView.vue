@@ -16,12 +16,19 @@
         <house-detail />
       </b-col>
     </b-row>
+    <b-row>
+      <b-col>
+        <hr />
+        <house-map></house-map>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 <script>
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
 import HouseList from "@/components/house/HouseList.vue";
 import HouseDetail from "@/components/house/HouseDetail.vue";
+import HouseMap from "@/components/house/HouseMap.vue";
 
 export default {
   name: "HouseView",
@@ -29,6 +36,7 @@ export default {
     HouseSearchBar,
     HouseList,
     HouseDetail,
+    HouseMap,
   },
 };
 </script>

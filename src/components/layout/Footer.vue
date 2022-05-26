@@ -14,7 +14,7 @@
       m-auto
       style="display: flex; justify-content: center; align-items: center"
     >
-      <label>김앤박 Company</label>
+      <label>김앤박 Company™</label>
     </div>
     <br />
   </div>
