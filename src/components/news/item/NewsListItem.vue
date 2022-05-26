@@ -1,7 +1,7 @@
 <template>
   <b-tr>
     <b-th class="text-middle">
-      <a :href="link">{{ title }}</a>
+      <a :href="link" v-html="title"></a>
     </b-th>
   </b-tr>
 </template>
@@ -15,6 +15,9 @@ export default {
     originalLink: String,
     pubData: String,
     title: String,
+  },
+  created() {
+    console.log(this.title);
   },
 };
 </script>
