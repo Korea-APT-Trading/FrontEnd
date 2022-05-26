@@ -12,12 +12,7 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group
-          id="subject-group"
-          label="제목:"
-          label-for="subject"
-          description=" * 제목을 입력하세요."
-        >
+        <b-form-group id="subject-group" label="제목:" label-for="subject">
           <b-form-input
             id="subject"
             v-model="article.subject"
@@ -53,7 +48,7 @@
           variant="danger"
           class="m-1"
           v-if="this.type === 'register'"
-          >초기화</b-button
+          >목록이동</b-button
         >
         <b-button @click="moveList" variant="danger" class="m-1" v-else
           >취소</b-button
@@ -136,7 +131,6 @@ export default {
       this.article.articleno = 0;
       this.article.subject = "";
       this.article.content = "";
-      alert("Qna 목록으로 이동합니다");
       this.$router.push({ name: "qnaList" });
     },
     registArticle() {

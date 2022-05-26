@@ -2,7 +2,7 @@
   <b-container class="bv-example-row">
     <b-row class="text-center">
       <b-col>
-        <b-input-group prepend="키워드" class="mt-3">
+        <b-input-group prepend="메모" class="mt-3">
           <b-form-input
             v-model.trim="todoTitle"
             @keypress.enter="registerTodo"

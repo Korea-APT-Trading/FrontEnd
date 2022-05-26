@@ -1,13 +1,11 @@
 <template>
   <b-container class="bv-example-row">
-    <b-row class="mt-1 text-center">
+    <!-- <b-row class="mt-1 text-center">
       <b-col> <h1>Record your house!</h1> </b-col>
-    </b-row>
+    </b-row> -->
     <b-row class="mt-1 text-center">
       <b-col>
-        <b-alert show variant="primary"
-          >키워드 수 : {{ allTodosCount }}</b-alert
-        >
+        <b-alert show variant="primary">메모 수 : {{ allTodosCount }}</b-alert>
       </b-col>
       <!-- <b-col>
         <b-alert show variant="success"

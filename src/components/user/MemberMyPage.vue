@@ -9,7 +9,7 @@
       <b-col></b-col>
       <b-col cols="8">
         <b-jumbotron>
-          <template #header>My Page</template>
+          <template #header>회원 정보</template>
 
           <template #lead> 내 정보 확인페이지입니다. </template>
 

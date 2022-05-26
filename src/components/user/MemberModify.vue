@@ -9,7 +9,7 @@
       <b-col></b-col>
       <b-col cols="8">
         <b-jumbotron>
-          <template #header>Modify Page</template>
+          <template #header>정보 수정</template>
 
           <template #lead> 내 정보 수정페이지입니다. </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>House 위치</h3>
+    <h3>지도 정보</h3>
     <div id="map"></div>
   </div>
 </template>
